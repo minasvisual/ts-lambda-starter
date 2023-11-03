@@ -16,7 +16,10 @@ const start = async function (): Promise<void> {
 
 fastify.get('/', async function(req, res){
   const output = await handler({
-    body: JSON.stringify({})
+    body: JSON.stringify({
+      name: 'John Doe',
+      document: '999.999.999-99'
+    })
   } as unknown)
   res.send(output)
 })

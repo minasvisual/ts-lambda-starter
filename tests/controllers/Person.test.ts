@@ -1,4 +1,4 @@
-import Person from '@/controllers/Person'
+import Person from '@/controllers/PersonController'
 import { describe, expect, test } from 'vitest'
 
 describe("Person class", () => { 
