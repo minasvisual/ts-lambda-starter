@@ -5,6 +5,8 @@ export default defineConfig({
   test: {
     singleThread: true,
     // silent: true,
+    globals: true,
+    setupFiles: [ path.resolve(__dirname, './tests/mocks/envVars.ts') ], 
     exclude:[ ...configDefaults.exclude ],
     coverage: {
       all: true,
@@ -29,5 +31,6 @@ export default defineConfig({
       '@/tests': path.resolve(__dirname, './tests'),
       '@': path.resolve(__dirname, './src')
     }
-  }
+  },
+
 })
