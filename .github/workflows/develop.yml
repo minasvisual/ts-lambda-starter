@@ -1,0 +1,37 @@
+name: Development Deploy
+
+on:
+  pull_request:
+    types: [synchronize, opened, reopened, ready_for_review, labeled]
+  push:
+    branches:
+      - develop
+
+env:
+  APP_ENV: 'dev'
+  TEST_SECRET: ${{secrets.DEV_TEST_SECRET}}
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    name: Lambda Boilerplate - Tests and Audit
+    env:
+      AWS_REGION: "us-east-1"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install -g yarn && yarn install
+
+      - name: Audit production dependencies
+        run: yarn audit --groups "dependencies"
+
+      - name: Run Tests
+        run: yarn test:coverage

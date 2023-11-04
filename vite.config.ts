@@ -4,8 +4,12 @@ import { configDefaults, defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     singleThread: true,
-    // silent: true,
-    exclude:[ ...configDefaults.exclude ],
+    silent: true,
+    globals: true,
+    setupFiles: [ path.resolve(__dirname, './tests/mocks/envVars.ts') ], 
+    exclude:[ 
+      ...configDefaults.exclude, 
+    ],
     coverage: {
       all: true,
       provider: 'v8',
@@ -18,9 +22,11 @@ export default defineConfig({
         'tests/**/ts',
         'src/local.ts',
         'src/invoke.ts',
-        '**/contracts/**',
+        '**/env.ts',
+        '**/errors/**',
         '**/types/**',
-        '**/factories/**'
+        '**/interfaces/**',
+        '**/mocks/**'
       ]
     }
   },
@@ -29,5 +35,6 @@ export default defineConfig({
       '@/tests': path.resolve(__dirname, './tests'),
       '@': path.resolve(__dirname, './src')
     }
-  }
+  },
+
 })
