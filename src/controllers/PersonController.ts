@@ -28,7 +28,7 @@ export default class PersonController extends BaseController{
     this.person = new Person(data) 
     if( this.person.isCnpj() )
       this.logger.info('Empresa')
-    else 
+    else
       this.logger.info('Pessoa fisica')
 
     return this.person.input
